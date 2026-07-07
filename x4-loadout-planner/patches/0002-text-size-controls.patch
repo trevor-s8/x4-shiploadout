@@ -1,0 +1,125 @@
+diff --git a/src/App.tsx b/src/App.tsx
+index 1a67ee1..6aca311 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -8,7 +8,7 @@ import CompareView from './views/CompareView';
+ import RolesView from './views/RolesView';
+ import SavedView from './views/SavedView';
+ import CombatView from './views/CombatView';
+-import { type SavedBuild } from './storage';
++import { type SavedBuild, loadFontScale, saveFontScale, FONT_SCALE_MIN, FONT_SCALE_MAX, FONT_SCALE_STEP, FONT_SCALE_DEFAULT } from './storage';
+ import { emptyLoadout } from './engine/derive';
+ 
+ export interface CompareEntry { shipId: string; loadout: Loadout; label: string }
+@@ -46,6 +46,19 @@ export default function App() {
+   const [compare, setCompare] = useState<CompareEntry[]>([]);
+   const [error, setError] = useState<string | null>(null);
+   const [roles, setRoles] = useState<Role[]>(() => getRoles());
++  const [fontScale, setFontScale] = useState<number>(() => loadFontScale());
++
++  const adjustFontScale = (delta: number) => {
++    setFontScale(s => {
++      const next = Math.round((Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, s + delta))) * 100) / 100;
++      saveFontScale(next);
++      return next;
++    });
++  };
++  const resetFontScale = () => {
++    setFontScale(FONT_SCALE_DEFAULT);
++    saveFontScale(FONT_SCALE_DEFAULT);
++  };
+ 
+   useEffect(() => {
+     fetch(`${import.meta.env.BASE_URL}data/gamedata.json`)
+@@ -81,7 +94,7 @@ export default function App() {
+   const addCompare = (e: CompareEntry) => setCompare(c => (c.length >= 4 ? c : [...c, e]));
+ 
+   return (
+-    <div className="app">
++    <div className="app" style={{ '--font-scale': fontScale } as React.CSSProperties}>
+       <header className="topbar">
+         <button className="brand" onClick={() => setView({ name: 'browser' })}>
+           <span className="brand-x4">X4</span> LOADOUT PLANNER
+@@ -95,6 +108,26 @@ export default function App() {
+           <button className={view.name === 'roles' ? 'active' : ''} onClick={() => setView({ name: 'roles' })}>Roles</button>
+           <button className={view.name === 'saved' ? 'active' : ''} onClick={() => setView({ name: 'saved' })}>Saved</button>
+         </nav>
++        <div className="text-size" role="group" aria-label="Text size">
++          <button
++            onClick={() => adjustFontScale(-FONT_SCALE_STEP)}
++            disabled={fontScale <= FONT_SCALE_MIN}
++            title="Decrease text size"
++            aria-label="Decrease text size"
++          >A−</button>
++          <button
++            className="text-size-reset"
++            onClick={resetFontScale}
++            title={`Reset text size (${Math.round(fontScale * 100)}%)`}
++            aria-label="Reset text size"
++          >{Math.round(fontScale * 100)}%</button>
++          <button
++            onClick={() => adjustFontScale(FONT_SCALE_STEP)}
++            disabled={fontScale >= FONT_SCALE_MAX}
++            title="Increase text size"
++            aria-label="Increase text size"
++          >A+</button>
++        </div>
+         <span className="version">v{data.meta.gameVersion}</span>
+       </header>
+ 
+diff --git a/src/storage.ts b/src/storage.ts
+index 2d5147d..3240663 100644
+--- a/src/storage.ts
++++ b/src/storage.ts
+@@ -11,6 +11,24 @@ export interface SavedBuild {
+ }
+ 
+ const LS_BUILDS = 'x4lp-saved-builds';
++const LS_FONT_SCALE = 'x4lp-font-scale';
++
++export const FONT_SCALE_MIN = 0.85;
++export const FONT_SCALE_MAX = 1.3;
++export const FONT_SCALE_STEP = 0.05;
++export const FONT_SCALE_DEFAULT = 1;
++
++export function loadFontScale(): number {
++  try {
++    const v = Number(localStorage.getItem(LS_FONT_SCALE));
++    if (!Number.isFinite(v) || v <= 0) return FONT_SCALE_DEFAULT;
++    return Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, v));
++  } catch { return FONT_SCALE_DEFAULT; }
++}
++
++export function saveFontScale(scale: number): void {
++  try { localStorage.setItem(LS_FONT_SCALE, String(scale)); } catch { /* storage unavailable */ }
++}
+ 
+ export function loadBuilds(): SavedBuild[] {
+   try {
+diff --git a/src/styles.css b/src/styles.css
+index 6a17aea..8984e14 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -19,6 +19,7 @@ body {
+   color: var(--text);
+   font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+ }
++.app { font-size: calc(1em * var(--font-scale, 1)); }
+ button, input, select {
+   font: inherit; color: inherit;
+   background: var(--panel-2); border: 1px solid var(--line);
+@@ -42,7 +43,13 @@ h3 { font-size: 12px; margin: 0 0 6px; color: var(--accent); text-transform: upp
+ .brand-x4 { color: var(--accent); }
+ .topbar nav { display: flex; gap: 8px; }
+ .topbar nav .active { border-color: var(--accent); color: var(--accent); }
+-.version { margin-left: auto; color: var(--dim); font-family: var(--mono); font-size: 12px; }
++.text-size { display: flex; gap: 0; margin-left: auto; }
++.text-size button { border-radius: 4px 0 0 4px; padding: 6px 9px; font-size: 12px; }
++.text-size button + button { border-radius: 0; border-left: none; }
++.text-size button:last-child { border-radius: 0 4px 4px 0; }
++.text-size-reset { font-family: var(--mono); color: var(--dim); min-width: 42px; text-align: center; }
++.text-size button:disabled { opacity: 0.4; cursor: default; }
++.version { color: var(--dim); font-family: var(--mono); font-size: 12px; }
+ 
+ .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+ .filters input { min-width: 200px; flex: 1; }

@@ -1,0 +1,57 @@
+From 20e9b05722d6959a42125a7b2097eb70c6ae6e4e Mon Sep 17 00:00:00 2001
+From: patch <patch@local>
+Date: Tue, 7 Jul 2026 15:30:28 +0000
+Subject: [PATCH] fix: scope Fitting screen's saved-build dropdown to the
+ current ship only
+
+Per feedback: swapping to a build for a different ship belongs on the
+Saved page (general library, still unchanged), not the in-screen
+quick-switcher. Dropdown now only lists thisShipBuilds, drops the
+'Other ships' optgroup, and hides entirely (as before) when there are
+no saved builds for the ship currently open.
+---
+ src/views/FittingScreen.tsx | 20 ++++----------------
+ 1 file changed, 4 insertions(+), 16 deletions(-)
+
+diff --git a/src/views/FittingScreen.tsx b/src/views/FittingScreen.tsx
+index 27833bf..a062d51 100644
+--- a/src/views/FittingScreen.tsx
++++ b/src/views/FittingScreen.tsx
+@@ -152,7 +152,6 @@ export default function FittingScreen({ data, ship, fits, roles, initial, onAddC
+   // user just saved shows up in "Load saved build" without needing to leave and come back
+   const savedBuilds = useMemo(() => loadBuilds(), [savedMsg]);
+   const thisShipBuilds = useMemo(() => savedBuilds.filter(b => b.shipId === ship.id), [savedBuilds, ship.id]);
+-  const otherShipBuilds = useMemo(() => savedBuilds.filter(b => b.shipId !== ship.id), [savedBuilds, ship.id]);
+   const d = useMemo(() => derive(ship, loadout, data), [ship, loadout, data]);
+   const group = ship.groups.find(g => g.key === activeGroup) ?? null;
+   const preview = useMemo(() => {
+@@ -259,22 +258,11 @@ export default function FittingScreen({ data, ship, fits, roles, initial, onAddC
+               <option key={r.id} value={r.id}>{r.name}</option>
+             ))}
+           </select>
+-          {savedBuilds.length > 0 && (
+-            <select className="tt" data-tip="Swap in a build you've previously saved — for this ship, or start from any other ship's build"
+-              value="" onChange={e => { const b = savedBuilds.find(x => x.id === e.target.value); if (b) onSwitchBuild(b); }}>
++          {thisShipBuilds.length > 0 && (
++            <select className="tt" data-tip="Swap in a build you've previously saved for this ship"
++              value="" onChange={e => { const b = thisShipBuilds.find(x => x.id === e.target.value); if (b) onSwitchBuild(b); }}>
+               <option value="">Load saved build…</option>
+-              {thisShipBuilds.length > 0 && (
+-                <optgroup label={`For this ship`}>
+-                  {thisShipBuilds.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
+-                </optgroup>
+-              )}
+-              {otherShipBuilds.length > 0 && (
+-                <optgroup label="Other ships">
+-                  {otherShipBuilds.map(b => (
+-                    <option key={b.id} value={b.id}>{b.name} — {data.ships.find(s => s.id === b.shipId)?.name ?? 'unknown ship'}</option>
+-                  ))}
+-                </optgroup>
+-              )}
++              {thisShipBuilds.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
+             </select>
+           )}
+           <button onClick={() => { setLoadout(emptyLoadout(ship)); setPreset(null); try { localStorage.removeItem(draftKey); } catch { /* ignore */ } }}>Clear</button>
+-- 
+2.43.0
+

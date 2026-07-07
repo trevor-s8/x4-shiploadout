@@ -1,0 +1,588 @@
+{
+ "kind": "x4lp-supplemental-damage",
+ "gameVersion": "9.0.0.0",
+ "source": "roguey.co.uk v9.0 weapons list (user-supplied paste); burst DPS / decomposed values",
+ "instructions": "Fill value (uniform) OR shield+hull (split damage) per weapon, damage per shot. Leave null to keep the weapon flagged n/a. Then run: npm run data",
+ "weapons": {
+  "turret_arg_m_flak_01_mk1": {
+   "name": "ARG M Flak Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_arg_m_flak_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 117.8,
+   "rof": 0.56
+  },
+  "turret_arg_m_flak_02_mk1": {
+   "name": "ARG M Flak Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_arg_m_flak_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 117.8,
+   "rof": 0.56
+  },
+  "turret_bor_l_disruptor_01_mk1": {
+   "name": "BOR L Kinetic Ion Railgun Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_bor_l_disruptor_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 240.0,
+   "rof": 0.2
+  },
+  "turret_bor_l_flak_01_mk1": {
+   "name": "BOR L Ion Flak Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_bor_l_flak_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 184.1,
+   "rof": 0.2
+  },
+  "turret_bor_m_dumbfire_01_mk1": {
+   "name": "BOR M Dumbfire Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_bor_m_dumbfire_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 634.1
+  },
+  "turret_bor_m_guided_01_mk1": {
+   "name": "BOR M Tracking Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_bor_m_guided_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 63.2
+  },
+  "turret_gen_m_disabler_01_mk1": {
+   "name": "TEL M Distortion Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_gen_m_disabler_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS); raw damage is negligible by design \u2014 its value is the engine-disable effect (not modeled)",
+   "burstDPS": 8.8,
+   "rof": 0.29
+  },
+  "turret_gen_m_scrapbeam_01_mk1": {
+   "name": "Scrap Tractor",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_gen_m_scrapbeam_01_mk1_macro/",
+   "note": "no damage in any source \u2014 utility/salvage tool, leave null"
+  },
+  "turret_kha_l_beam_01_mk1": {
+   "name": "KHA L Kyon Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_kha_l_beam_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 375.0,
+   "rof": 0.13
+  },
+  "turret_par_l_beam_01_mk1": {
+   "name": "PAR L Mass Driver Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_par_l_beam_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 170.0,
+   "rof": 0.07
+  },
+  "turret_par_m_beam_01_mk1": {
+   "name": "PAR M Mass Driver Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_par_m_beam_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 68.8,
+   "rof": 0.06
+  },
+  "turret_par_m_beam_02_mk1": {
+   "name": "PAR M Mass Driver Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_par_m_beam_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 68.8,
+   "rof": 0.06
+  },
+  "turret_par_m_shotgun_01_mk1": {
+   "name": "PAR M Blast Mortar Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_par_m_shotgun_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 114.4,
+   "rof": 0.38
+  },
+  "turret_par_m_shotgun_02_mk1": {
+   "name": "PAR M Blast Mortar Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_par_m_shotgun_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 114.4,
+   "rof": 0.38
+  },
+  "turret_spl_l_dumbfire_01_mk1": {
+   "name": "SPL L Dumbfire Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_l_dumbfire_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 3018.9
+  },
+  "turret_spl_l_guided_01_mk1": {
+   "name": "SPL L Tracking Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_l_guided_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 988.2
+  },
+  "turret_spl_m_dumbfire_01_mk1": {
+   "name": "SPL M Dumbfire Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_dumbfire_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 2666.7
+  },
+  "turret_spl_m_dumbfire_02_mk1": {
+   "name": "SPL M Dumbfire Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_dumbfire_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 2666.7
+  },
+  "turret_spl_m_flak_01_mk1": {
+   "name": "SPL M Flak Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_flak_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 113.7,
+   "rof": 0.4
+  },
+  "turret_spl_m_flak_02_mk1": {
+   "name": "SPL M Flak Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_flak_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 113.7,
+   "rof": 0.4
+  },
+  "turret_spl_m_guided_01_mk1": {
+   "name": "SPL M Tracking Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_guided_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 49.0
+  },
+  "turret_spl_m_guided_02_mk1": {
+   "name": "SPL M Tracking Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_guided_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 49.0
+  },
+  "turret_spl_m_laser_01_mk1": {
+   "name": "SPL M Pulse Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_laser_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 63.9,
+   "rof": 1.78
+  },
+  "turret_spl_m_laser_02_mk1": {
+   "name": "SPL M Pulse Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_laser_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 63.9,
+   "rof": 1.78
+  },
+  "turret_spl_m_mining_01_mk1": {
+   "name": "SPL M Mining Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_mining_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 2.5,
+   "rof": 0.25
+  },
+  "turret_spl_m_mining_02_mk1": {
+   "name": "SPL M Mining Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_mining_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 2.5,
+   "rof": 0.25
+  },
+  "turret_spl_m_plasma_01_mk1": {
+   "name": "SPL M Plasma Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_plasma_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 230.8,
+   "rof": 0.15
+  },
+  "turret_spl_m_plasma_02_mk1": {
+   "name": "SPL M Plasma Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_spl_m_plasma_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 230.8,
+   "rof": 0.15
+  },
+  "turret_ter_l_dumbfire_01_mk1": {
+   "name": "TER L Dumbfire Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_l_dumbfire_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 2191.8
+  },
+  "turret_ter_l_guided_01_mk1": {
+   "name": "TER L Tracking Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_l_guided_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 8400.0
+  },
+  "turret_ter_l_laser_01_mk1": {
+   "name": "TER L Pulse Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_l_laser_01_mk1_macro/",
+   "note": "damage per shot; use value for uniform damage, or shield+hull for split (ion-type). Flak: use the explosion damage as value."
+  },
+  "turret_ter_m_dumbfire_01_mk1": {
+   "name": "TER M Dumbfire Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_m_dumbfire_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 1437.8
+  },
+  "turret_ter_m_dumbfire_02_mk1": {
+   "name": "TER M Dumbfire Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_m_dumbfire_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 1437.8
+  },
+  "turret_ter_m_guided_01_mk1": {
+   "name": "TER M Tracking Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_m_guided_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 70.6
+  },
+  "turret_ter_m_guided_02_mk1": {
+   "name": "TER M Tracking Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_m_guided_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 70.6
+  },
+  "turret_ter_m_mining_01_mk1": {
+   "name": "TER M Mining Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_m_mining_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 2.5,
+   "rof": 0.25
+  },
+  "turret_ter_m_mining_02_mk1": {
+   "name": "TER M Mining Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_ter_m_mining_02_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 2.5,
+   "rof": 0.25
+  },
+  "turret_xen_xl_battleship_01_mk1": {
+   "name": "XEN XL Omega Turret Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/turret_xen_xl_battleship_01_mk1_macro/",
+   "note": "from Roguey v9.0 turret list paste (burst DPS)",
+   "burstDPS": 10666.7,
+   "rof": 0.05
+  },
+  "weapon_bor_l_beam_01_mk1": {
+   "name": "BOR Ray Ion Projector",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_bor_l_beam_01_mk1_macro/",
+   "note": "from Roguey v9.0 list screenshot (burst DPS)",
+   "burstDPS": 4533.3,
+   "rof": 0.1
+  },
+  "weapon_bor_m_flak_01_mk1": {
+   "name": "BOR M Ion Atomiser Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_bor_m_flak_01_mk1_macro/",
+   "note": "from Roguey v9.0 list screenshot (burst DPS)",
+   "burstDPS": 192.5,
+   "rof": 0.48
+  },
+  "weapon_gen_m_plasma_01_mk1": {
+   "name": "M Plasma Cannon Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_gen_m_plasma_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 480.0,
+   "rof": 0.4
+  },
+  "weapon_gen_m_plasma_01_mk2": {
+   "name": "M Plasma Cannon Mk2",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_gen_m_plasma_01_mk2_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 672.0,
+   "rof": 0.4
+  },
+  "weapon_gen_s_cannon_01_mk1": {
+   "name": "S Blast Mortar Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_gen_s_cannon_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 167.1,
+   "rof": 0.44
+  },
+  "weapon_gen_s_cannon_01_mk2": {
+   "name": "S Blast Mortar Mk2",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_gen_s_cannon_01_mk2_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 222.6,
+   "rof": 0.51
+  },
+  "weapon_gen_s_plasma_01_mk1": {
+   "name": "S Plasma Cannon Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_gen_s_plasma_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 276.9,
+   "rof": 0.38
+  },
+  "weapon_gen_s_plasma_01_mk2": {
+   "name": "S Plasma Cannon Mk2",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_gen_s_plasma_01_mk2_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 416.7,
+   "rof": 0.42
+  },
+  "weapon_kha_l_beam_01_mk1": {
+   "name": "KHA Ravager Main Battery",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_kha_l_beam_01_mk1_macro/",
+   "note": "from Roguey v9.0 list screenshot (burst DPS)",
+   "burstDPS": 18857.1,
+   "rof": 0.05
+  },
+  "weapon_kha_xl_battleship_01_mk1": {
+   "name": "KHA Obliterator Main Battery",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_kha_xl_battleship_01_mk1_macro/",
+   "note": "from Roguey v9.0 list screenshot (burst DPS)",
+   "burstDPS": 594059.4,
+   "rof": 0.05
+  },
+  "weapon_par_l_destroyer_01_mk1": {
+   "name": "PAR Odysseus Main Battery",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_par_l_destroyer_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 1522.2,
+   "rof": 0.28
+  },
+  "weapon_par_m_railgun_01_mk1": {
+   "name": "PAR M Mass Driver Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_par_m_railgun_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 260.9,
+   "rof": 0.23
+  },
+  "weapon_par_m_railgun_01_mk2": {
+   "name": "PAR M Mass Driver Mk2",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_par_m_railgun_01_mk2_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 356.9,
+   "rof": 0.26
+  },
+  "weapon_par_s_railgun_01_mk1": {
+   "name": "PAR S Mass Driver Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_par_s_railgun_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 190.7,
+   "rof": 0.23
+  },
+  "weapon_par_s_railgun_01_mk2": {
+   "name": "PAR S Mass Driver Mk2",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_par_s_railgun_01_mk2_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 254.4,
+   "rof": 0.26
+  },
+  "weapon_pir_xl_battleship_01_mk1": {
+   "name": "Erlking Main Battery",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_pir_xl_battleship_01_mk1_macro/",
+   "note": "from Roguey v9.0 list screenshot (burst DPS)",
+   "burstDPS": 4125.0,
+   "rof": 0.25
+  },
+  "weapon_tel_m_charge_01_mk1": {
+   "name": "TEL M Muon Disintegrator Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_tel_m_charge_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 462.1,
+   "rof": 0.71
+  },
+  "weapon_tel_m_charge_01_mk2": {
+   "name": "TEL M Muon Disintegrator Mk2",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_tel_m_charge_01_mk2_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 660.0,
+   "rof": 0.71
+  },
+  "weapon_tel_s_charge_01_mk1": {
+   "name": "TEL S Muon Disintegrator Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_tel_s_charge_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 292.3,
+   "rof": 0.77
+  },
+  "weapon_tel_s_charge_01_mk2": {
+   "name": "TEL S Muon Disintegrator Mk2",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_tel_s_charge_01_mk2_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 418.5,
+   "rof": 0.77
+  },
+  "weapon_xen_m_beam_01_mk1": {
+   "name": "XEN M Plasma Cutter Beam Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_xen_m_beam_01_mk1_macro/",
+   "note": "from Roguey v9.0 list paste (burst DPS)",
+   "burstDPS": 413.3,
+   "rof": 0.17
+  },
+  "weapon_xen_m_mining_02_mk1": {
+   "name": "XEN M Mining Drill Mk1",
+   "value": null,
+   "shield": null,
+   "hull": null,
+   "fillFrom": "https://roguey.co.uk/x4/weapons/weapon_xen_m_mining_02_mk1_macro/",
+   "note": "no damage in any source \u2014 utility/salvage tool, leave null"
+  }
+ }
+}

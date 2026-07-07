@@ -1,0 +1,83 @@
+From 8c7ec58e2353379d225cb2af79bfff94301b23aa Mon Sep 17 00:00:00 2001
+From: patch <patch@local>
+Date: Tue, 7 Jul 2026 15:07:59 +0000
+Subject: [PATCH] fix: remove explanatory copy from Roles page and role cards
+
+Removed per user request:
+- The two intro paragraphs under 'Role presets' (beta explanation,
+  weighted-priorities explanation, and the rename/rescore instructions).
+- The 'Custom roles apply to every ship...' caption next to the
+  + New custom role button.
+- The 'In play:' playstyle line on every role card.
+
+Kept: the page heading with its beta badge, the New custom role
+button itself, and the live 'Rescoring ships...' status message
+(functional feedback, not explanatory copy).
+
+Role.playstyle stays in the data model (src/data/roles.ts) since it's
+harmless unused data and may be useful again later; only the render
+and the now-dead .role-play CSS rule were removed.
+---
+ src/styles.css          |  1 -
+ src/views/RolesView.tsx | 19 +------------------
+ 2 files changed, 1 insertion(+), 19 deletions(-)
+
+diff --git a/src/styles.css b/src/styles.css
+index 3829bdd..2302078 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -240,7 +240,6 @@ button.tt { border-bottom-style: solid; cursor: pointer; }
+ .role-desc-input:hover { border-color: var(--line); }
+ .role-desc-input:focus { border-color: var(--accent-dim); background: var(--panel-2); outline: none; }
+ .role-desc { color: var(--text); margin: 8px 0 4px; }
+-.role-play { color: var(--dim); font-size: 13px; margin: 0 0 10px; }
+ .wrow { display: grid; grid-template-columns: 132px 1fr 44px 30px 28px; gap: 8px; align-items: center; padding: 3px 0; }
+ .wlabel { font-size: 13px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .wpct { font-family: var(--mono); font-size: 13px; text-align: right; color: var(--accent); }
+diff --git a/src/views/RolesView.tsx b/src/views/RolesView.tsx
+index b1f052d..806ef9b 100644
+--- a/src/views/RolesView.tsx
++++ b/src/views/RolesView.tsx
+@@ -52,7 +52,6 @@ function RoleCard({ role, onChanged }: { role: Role; onChanged: () => void }) {
+       </div>
+       <textarea className="role-desc-input" value={desc} onChange={e => setDesc(e.target.value)}
+         aria-label="Role description" placeholder="What is this role for?" rows={2} />
+-      <p className="role-play"><b>In play:</b> {role.playstyle}</p>
+       <div className="role-weights">
+         {entries.map(([k, w]) => (
+           <div key={k} className="wrow">
+@@ -101,22 +100,7 @@ export default function RolesView({ roles, recomputing, onRolesChanged }: {
+     <main className="roles">
+       <div className="roles-intro">
+         <h1>Role presets <span className="badge beta">beta</span></h1>
+-        <p>
+-          Roles are in <b>beta</b> — we ship just two tuned starting points (<b>Efficient Haulers</b> and{' '}
+-          <b>Bombers</b>) instead of a large preset library while we validate the scoring model. Every role is a
+-          set of <b>weighted priorities over derived stats</b> — not a fixed shopping list. When you apply a role
+-          to a ship, the planner tries every compatible module in every slot and keeps the combination that best
+-          serves these priorities, so the same role produces different (correct) picks on different hulls.
+-          Percentages show each stat's share of the total weight; the <b>↓</b> toggle marks a stat where{' '}
+-          <i>lower</i> is better (like travel spool time).
+-        </p>
+-        <p className="hint">
+-          Rename a role, rewrite its description, drag the sliders, add or remove stats, and hit{' '}
+-          <b>Save & rescore</b> — role-fit scores across all 256 ships recalculate with your weights, and presets
+-          you apply from now on use them. Your changes live in this browser only; <b>Reset to default</b> restores
+-          our tuning and original name for the two starter roles.
+-          {recomputing && <b> Rescoring ships…</b>}
+-        </p>
++        {recomputing && <p className="hint"><b>Rescoring ships…</b></p>}
+       </div>
+       <div className="roles-tools">
+         <button onClick={() => {
+@@ -126,7 +110,6 @@ export default function RolesView({ roles, recomputing, onRolesChanged }: {
+             weights: { topSpeed: 0.25, ehp: 0.25, totalSustained: 0.25, cargo: 0.25 }, inverted: [] });
+           onRolesChanged();
+         }}>+ New custom role</button>
+-        <span className="dimtext">Custom roles apply to every ship, score alongside the built-ins, and export with your backup.</span>
+       </div>
+       <div className="roles-grid">
+         {roles.map(r => <RoleCard key={r.id} role={r} onChanged={onRolesChanged} />)}
+-- 
+2.43.0
+
