@@ -1,0 +1,117 @@
+{
+ "kind": "x4lp-supplemental-hangars",
+ "source": "community-verified capacities (Steam/NamuWiki) + flagged estimates; replace with Roguey ships CSV when pasted",
+ "instructions": "capacity = total fighters the ship can launch/store. Run npm run data after filling.",
+ "ships": {
+  "ship_arg_xl_carrier_01_a": {
+   "name": "Colossus Vanguard",
+   "capacity": 60,
+   "note": "verified: 48 S + 12 M (community/beta threads)"
+  },
+  "ship_arg_xl_carrier_01_b": {
+   "name": "Colossus Sentinel",
+   "capacity": 60,
+   "note": "verified: 48 S + 12 M (community/beta threads)"
+  },
+  "ship_arg_xl_carrier_02_a": {
+   "name": "Colossus E",
+   "capacity": 60,
+   "note": "verified: 48 S + 12 M (community/beta threads)"
+  },
+  "ship_arg_xl_resupplier_01_a": {
+   "name": "Nomad Vanguard",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_arg_xl_resupplier_01_b": {
+   "name": "Nomad Sentinel",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_bor_l_carrier_01_a": {
+   "name": "Guppy",
+   "capacity": 28,
+   "note": "estimate: light task-force carrier"
+  },
+  "ship_bor_xl_carrier_01_a": {
+   "name": "Shark",
+   "capacity": 60,
+   "note": "estimate: \"holds a decent amount\", between Colossus and Raptor"
+  },
+  "ship_bor_xl_resupplier_01_a": {
+   "name": "Orca",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_par_xl_carrier_01_a": {
+   "name": "Zeus Vanguard",
+   "capacity": 44,
+   "note": "verified: 8/24 S + 4/8 M (NamuWiki v9-era)"
+  },
+  "ship_par_xl_carrier_01_b": {
+   "name": "Zeus Sentinel",
+   "capacity": 44,
+   "note": "verified: 8/24 S + 4/8 M (NamuWiki v9-era)"
+  },
+  "ship_par_xl_carrier_02_a": {
+   "name": "Zeus E",
+   "capacity": 44,
+   "note": "verified: 8/24 S + 4/8 M (NamuWiki v9-era)"
+  },
+  "ship_par_xl_resupplier_01_a": {
+   "name": "Atlas Vanguard",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_par_xl_resupplier_01_b": {
+   "name": "Atlas Sentinel",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_par_xl_resupplier_02_a": {
+   "name": "Atlas E",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_spl_xl_carrier_01_a": {
+   "name": "Raptor",
+   "capacity": 96,
+   "note": "estimate: community consensus \"holds the most fighters\""
+  },
+  "ship_spl_xl_resupplier_01_a": {
+   "name": "Monitor",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_tel_xl_carrier_01_a": {
+   "name": "Condor Vanguard",
+   "capacity": 39,
+   "note": "verified: 6/24 S + 3/6 M"
+  },
+  "ship_tel_xl_carrier_01_b": {
+   "name": "Condor Sentinel",
+   "capacity": 39,
+   "note": "verified: 6/24 S + 3/6 M"
+  },
+  "ship_tel_xl_resupplier_01_a": {
+   "name": "Stork Vanguard",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_tel_xl_resupplier_01_b": {
+   "name": "Stork Sentinel",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  },
+  "ship_ter_xl_carrier_01_a": {
+   "name": "Tokyo",
+   "capacity": 72,
+   "note": "verified-ish: 68 fighters (18 dock + 50 internal) + M pads"
+  },
+  "ship_ter_xl_resupplier_01_a": {
+   "name": "Honshu",
+   "capacity": 14,
+   "note": "estimate: auxiliary \u2014 few pads + small storage"
+  }
+ }
+}

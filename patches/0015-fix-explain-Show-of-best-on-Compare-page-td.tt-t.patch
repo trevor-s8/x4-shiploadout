@@ -1,0 +1,62 @@
+From f4a074ee508bf96807eab5016e1a309814be65bd Mon Sep 17 00:00:00 2001
+From: patch <patch@local>
+Date: Tue, 7 Jul 2026 19:23:18 +0000
+Subject: [PATCH] fix: explain 'Show % of best' on Compare page; td.tt tooltip
+ support
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Added a hover tooltip to the checkbox label: 'For each row, shows every
+build's value as a percentage of whichever build scored best on that
+stat — e.g. 80% means this build has 80% of the top build's cargo.'
+Also added td.tt cursor styling so the same tooltip convention (already
+used on span.tt) reads correctly when applied to table cells, needed
+for the best-build module-name tooltips in this batch too.
+---
+ src/styles.css            | 7 +++++++
+ src/views/CompareView.tsx | 4 +++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/src/styles.css b/src/styles.css
+index 2302078..e310b4a 100644
+--- a/src/styles.css
++++ b/src/styles.css
+@@ -170,6 +170,7 @@ h3 { font-size: 13px; margin: 0 0 6px; color: var(--accent); text-transform: upp
+ /* ---- instant styled tooltips (9) ---- */
+ .tt { position: relative; }
+ span.tt { border-bottom: 1px dotted color-mix(in srgb, var(--dim) 60%, transparent); cursor: help; }
++td.tt { cursor: help; }
+ .tt::after {
+   content: attr(data-tip);
+   position: absolute; top: calc(100% + 6px); right: 0;
+@@ -307,5 +308,11 @@ button.tt { border-bottom-style: solid; cursor: pointer; }
+ .verdict-sub { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 8px; font-size: 13px; }
+ .roles-tools { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+ .cside input[list] { width: 100%; }
++.cside-empty {
++  display: flex; align-items: center; justify-content: space-between; gap: 10px;
++  background: var(--panel-2); border: 1px dashed var(--line); border-radius: 5px;
++  padding: 8px 10px; font-size: 12.5px; color: var(--dim);
++}
++.cside-empty button { flex-shrink: 0; font-size: 12.5px; padding: 4px 9px; }
+ .stats-head { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+ .stats-head .view-toggle button { font-size: 12px; padding: 3px 9px; }
+diff --git a/src/views/CompareView.tsx b/src/views/CompareView.tsx
+index 3c62369..11f16c3 100644
+--- a/src/views/CompareView.tsx
++++ b/src/views/CompareView.tsx
+@@ -23,7 +23,9 @@ export default function CompareView({ data, entries, onRemove, onOpen }: {
+   return (
+     <main className="compare">
+       <div className="compare-tools">
+-        <label><input type="checkbox" checked={pct} onChange={e => setPct(e.target.checked)} /> Show % of best</label>
++        <label className="tt" data-tip="For each row, shows every build's value as a percentage of whichever build scored best on that stat — e.g. 80% means this build has 80% of the top build's cargo.">
++          <input type="checkbox" checked={pct} onChange={e => setPct(e.target.checked)} /> Show % of best
++        </label>
+       </div>
+       <div className="compare-scroll">
+         <table>
+-- 
+2.43.0
+

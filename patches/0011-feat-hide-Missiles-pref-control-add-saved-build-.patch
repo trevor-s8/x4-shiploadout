@@ -1,0 +1,178 @@
+From 62750380806c3ff1ad84edaf2aadfcdbaa28df4f Mon Sep 17 00:00:00 2001
+From: patch <patch@local>
+Date: Tue, 7 Jul 2026 15:18:40 +0000
+Subject: [PATCH] feat: hide Missiles pref control, add saved-build switcher on
+ Fitting screen
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Missiles auto/prefer/avoid control:
+- Hidden behind a SHOW_MISSILE_PREF = false flag (FittingScreen.tsx),
+  not deleted — marked as a removal candidate pending a decision on
+  whether missile loadouts stay in the planner long-term. All
+  underlying logic and state (missilePref, applyRole's missile-pref
+  handling) is untouched, so flipping the flag back to true fully
+  restores it.
+
+Saved-build switcher:
+- New 'Load saved build…' dropdown in the fit-actions bar, grouped
+  into 'For this ship' and 'Other ships' (showing the ship name for
+  the latter, since it's picking a starting point on a different hull).
+  Only renders when at least one build is saved.
+- Selecting an entry reuses the same sanitize-against-current-slots
+  logic Saved page's 'Open' button already used — refactored into a
+  shared openBuild() helper in App.tsx (was inlined in the SavedView
+  onOpen handler) and passed to FittingScreen as onSwitchBuild.
+- Verified end-to-end: same-ship switch keeps the screen on that ship
+  and swaps the loadout in place; cross-ship switch navigates to the
+  other ship with that build's loadout applied.
+---
+ src/App.tsx                 | 20 ++++++++------
+ src/views/FittingScreen.tsx | 53 ++++++++++++++++++++++++++++++-------
+ 2 files changed, 55 insertions(+), 18 deletions(-)
+
+diff --git a/src/App.tsx b/src/App.tsx
+index dd270ea..44c247e 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -90,6 +90,16 @@ export default function App() {
+     return m;
+   }, [data]);
+ 
++  // shared by SavedView's "Open" and FittingScreen's "Load saved build" dropdown: sanitizes a
++  // saved build's loadout against its ship's current slot shape (files may cross game versions)
++  const openBuild = (b: SavedBuild) => {
++    const ship = shipById.get(b.shipId);
++    if (!ship) return;
++    const clean: Loadout = { ...emptyLoadout(ship) };
++    for (const k of Object.keys(clean)) if (b.loadout[k] !== undefined) clean[k] = b.loadout[k];
++    setView({ name: 'fit', shipId: b.shipId, initial: clean });
++  };
++
+   if (error) return <div className="loading">Failed to load game data: {error}</div>;
+   if (!data) return <div className="loading">Loading 9.0 game data…</div>;
+ 
+@@ -144,14 +154,7 @@ export default function App() {
+           data={data}
+           roles={roles}
+           onRolesChanged={() => setRoles(getRoles())}
+-          onOpen={(b: SavedBuild) => {
+-            const ship = shipById.get(b.shipId);
+-            if (!ship) return;
+-            // sanitize: keep only slot keys this hull actually has (files may cross game versions)
+-            const clean: Loadout = { ...emptyLoadout(ship) };
+-            for (const k of Object.keys(clean)) if (b.loadout[k] !== undefined) clean[k] = b.loadout[k];
+-            setView({ name: 'fit', shipId: b.shipId, initial: clean });
+-          }}
++          onOpen={openBuild}
+         />
+       )}
+       {view.name === 'roles' && (
+@@ -167,6 +170,7 @@ export default function App() {
+           initial={view.initial}
+           onAddCompare={addCompare}
+           onGoCompare={() => setView({ name: 'compare' })}
++          onSwitchBuild={openBuild}
+         />
+       )}
+       {view.name === 'compare' && (
+diff --git a/src/views/FittingScreen.tsx b/src/views/FittingScreen.tsx
+index 5b1bb84..27833bf 100644
+--- a/src/views/FittingScreen.tsx
++++ b/src/views/FittingScreen.tsx
+@@ -5,11 +5,15 @@ import { buildForRole, type RoleFit, type MissilePref } from '../engine/optimize
+ import { roleMap, type Role } from '../data/roles';
+ import { STAT_SECTIONS, SIZE_LABEL, RACE_LABEL, CLASS_LABEL, fmt } from '../format';
+ import { encodeBuild, type CompareEntry } from '../App';
+-import { saveBuild, exportBuild } from '../storage';
++import { saveBuild, exportBuild, loadBuilds, type SavedBuild } from '../storage';
+ 
+ const RACK_ORDER: SlotGroup['kind'][] = ['engine', 'weapon', 'turret', 'shield'];
+ const RACK_HEADER = { engine: 'Engines', weapon: 'Weapons', turret: 'Turrets', shield: 'Shields' } as const;
+ 
++// REMOVAL CANDIDATE: the Missiles auto/prefer/avoid control is hidden until we decide whether
++// missile loadouts stay in the planner long-term. Flip to true to bring the UI back.
++const SHOW_MISSILE_PREF = false;
++
+ // ---- module scan-grid ----------------------------------------------------
+ 
+ function ModStats({ m, ship, engineCount }: { m: Module; ship: Ship; engineCount: number }) {
+@@ -111,9 +115,9 @@ function relevantStats(ship: Ship): Set<keyof Derived> {
+ 
+ interface Preset { roleId: string; name: string; loadout: Loadout; reasons: Record<string, string> }
+ 
+-export default function FittingScreen({ data, ship, fits, roles, initial, onAddCompare, onGoCompare }: {
++export default function FittingScreen({ data, ship, fits, roles, initial, onAddCompare, onGoCompare, onSwitchBuild }: {
+   data: GameData; ship: Ship; fits: RoleFit[]; roles: Role[]; initial?: Loadout;
+-  onAddCompare: (e: CompareEntry) => void; onGoCompare: () => void;
++  onAddCompare: (e: CompareEntry) => void; onGoCompare: () => void; onSwitchBuild: (b: SavedBuild) => void;
+ }) {
+   const roleM = useMemo(() => roleMap(roles), [roles]);
+   const draftKey = `x4lp-draft-${ship.id}`;
+@@ -144,7 +148,11 @@ export default function FittingScreen({ data, ship, fits, roles, initial, onAddC
+   const [pickDir, setPickDir] = useState<1 | -1 | 0>(0); // 0 = option default
+   const [missilePref, setMissilePref] = useState<MissilePref>('auto');
+   const [statMode, setStatMode] = useState<'is' | 'oos'>('is');
+-
++  // re-read whenever savedMsg flips true (a save just happened on this screen) so a build the
++  // user just saved shows up in "Load saved build" without needing to leave and come back
++  const savedBuilds = useMemo(() => loadBuilds(), [savedMsg]);
++  const thisShipBuilds = useMemo(() => savedBuilds.filter(b => b.shipId === ship.id), [savedBuilds, ship.id]);
++  const otherShipBuilds = useMemo(() => savedBuilds.filter(b => b.shipId !== ship.id), [savedBuilds, ship.id]);
+   const d = useMemo(() => derive(ship, loadout, data), [ship, loadout, data]);
+   const group = ship.groups.find(g => g.key === activeGroup) ?? null;
+   const preview = useMemo(() => {
+@@ -232,18 +240,43 @@ export default function FittingScreen({ data, ship, fits, roles, initial, onAddC
+           </div>
+         </div>
+         <div className="fit-actions">
+-          <select className="tt" data-tip="How presets treat mixed weapon/missile slots. Dedicated missile slots always get missiles."
+-            value={missilePref} onChange={e => { setMissilePref(e.target.value as MissilePref); if (preset) applyRole(preset.roleId, e.target.value as MissilePref); }}>
+-            <option value="auto">Missiles: auto</option>
+-            <option value="prefer">Missiles: prefer</option>
+-            <option value="avoid">Missiles: avoid</option>
+-          </select>
++          {/* TODO(removal-candidate): Missiles auto/prefer/avoid control is hidden pending a
++              decision on whether missile loadouts stay in the planner long-term. Logic and
++              state (missilePref) are untouched — only the UI is hidden. Set SHOW_MISSILE_PREF
++              to true, or delete this block and the related state/prop plumbing, to fully
++              remove it later. */}
++          {SHOW_MISSILE_PREF && (
++            <select className="tt" data-tip="How presets treat mixed weapon/missile slots. Dedicated missile slots always get missiles."
++              value={missilePref} onChange={e => { setMissilePref(e.target.value as MissilePref); if (preset) applyRole(preset.roleId, e.target.value as MissilePref); }}>
++              <option value="auto">Missiles: auto</option>
++              <option value="prefer">Missiles: prefer</option>
++              <option value="avoid">Missiles: avoid</option>
++            </select>
++          )}
+           <select value="" onChange={e => applyRole(e.target.value)}>
+             <option value="">Apply role preset…</option>
+             {roles.filter(r => !r.appliesTo || r.appliesTo(ship)).map(r => (
+               <option key={r.id} value={r.id}>{r.name}</option>
+             ))}
+           </select>
++          {savedBuilds.length > 0 && (
++            <select className="tt" data-tip="Swap in a build you've previously saved — for this ship, or start from any other ship's build"
++              value="" onChange={e => { const b = savedBuilds.find(x => x.id === e.target.value); if (b) onSwitchBuild(b); }}>
++              <option value="">Load saved build…</option>
++              {thisShipBuilds.length > 0 && (
++                <optgroup label={`For this ship`}>
++                  {thisShipBuilds.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
++                </optgroup>
++              )}
++              {otherShipBuilds.length > 0 && (
++                <optgroup label="Other ships">
++                  {otherShipBuilds.map(b => (
++                    <option key={b.id} value={b.id}>{b.name} — {data.ships.find(s => s.id === b.shipId)?.name ?? 'unknown ship'}</option>
++                  ))}
++                </optgroup>
++              )}
++            </select>
++          )}
+           <button onClick={() => { setLoadout(emptyLoadout(ship)); setPreset(null); try { localStorage.removeItem(draftKey); } catch { /* ignore */ } }}>Clear</button>
+           <button onClick={share}>{copied ? 'Link copied ✓' : 'Share'}</button>
+           <button className="tt" data-tip="Save this build to your local library (Saved page)" onClick={() => {
+-- 
+2.43.0
+
